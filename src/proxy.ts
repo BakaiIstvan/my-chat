@@ -38,7 +38,7 @@ class Proxy extends EventProducer<ProxyEventMap> {
 
     constructor() {
         super();
-        this.ws = new WebSocket("ws://echo.websocket.org/");
+        this.ws = new WebSocket("wss://raja.aut.bme.hu/chat/");
         this.ws.addEventListener("open", () => {
             this.ws.send("Hello");
         });
