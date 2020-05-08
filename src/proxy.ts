@@ -1,4 +1,4 @@
-import {MessageDto, InboxDto, OutgoingPacket, IncomingPacket} from './chat'
+import { MessageDto, InboxDto, OutgoingPacket, IncomingPacket } from './chat'
 
 export class EventProducer<M> {
     private listeners: { type: keyof M, listener, obj?: Object }[] = [];
@@ -14,7 +14,7 @@ export class EventProducer<M> {
             listener.listener.call(listener.obj, ...args);
     }
 
-    removeAllEventListener(obj?: Object) {
+    removeAllEventListener(obj: Object) {
         if (!obj)
             throw new Error("Must specify object");
         this.listeners = this.listeners.filter(x => x.obj !== obj);
@@ -39,9 +39,11 @@ class Proxy extends EventProducer<ProxyEventMap> {
     constructor() {
         super();
         this.ws = new WebSocket("wss://raja.aut.bme.hu/chat/");
-        this.ws.addEventListener("open", () => {
-            this.ws.send("Hello");
-        });
+
+        // this.ws.addEventListener("open", () => {
+        //     this.ws.send("Hello");
+        // });
+
         this.ws.addEventListener("message", e => {
             let p = <IncomingPacket>JSON.parse(e.data);
             switch (p.type) {
@@ -68,3 +70,19 @@ class Proxy extends EventProducer<ProxyEventMap> {
 }
 
 export var proxy = new Proxy();
+
+function registrationTest() {
+    proxy.addEventListener("login", () => {
+        console.log("Login incoming...");
+    });
+
+    proxy.sendPacket({
+        type: "register",
+        email: "EBQYG9@gmail.com",
+        password: "password",
+        displayName: "István",
+        staySignedIn: true
+    });
+}
+
+// registrationTest();

@@ -9,7 +9,7 @@ export class MessageCard extends PureComponent<{ message: MessageDto, own: boole
                 <div className="bubble">
                     <span className="text">{this.props.message.content}</span>
                     <span className="time">
-                        {new Date(this.props.message.timeStamp).toLocaleTimeString()}
+                        {new Date(this.props.message.timeStamp).toLocaleTimeString("hu-HU")}
                     </span>
                 </div>
             </div>

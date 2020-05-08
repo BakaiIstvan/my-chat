@@ -9,7 +9,6 @@ export class LeftPane extends Component<{
     onSelect: (c: ConversationDto) => void
 }>
 {
-
     sendContactRequest(email: string) {
         proxy.sendPacket({ type: "contactRequest", email, firstMessage: "Hello" });
         return true;

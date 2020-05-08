@@ -5,6 +5,13 @@ export class Login extends Component {
 
     state = { email: "", password: "", displayName: "", register: false };
 
+    changeEmail(e: string) {
+        this.setState({
+            email: e,
+            displayName: (e.startsWith("EBQYG9")) ? "István" : this.state.displayName
+        });
+    }
+
     onClick() {
         if (this.state.register)
             proxy.sendPacket({
@@ -16,7 +23,6 @@ export class Login extends Component {
                 type: "login", email: this.state.email, password: this.state.password,
                 staySignedIn: false
             });
-
     }
 
     render() {

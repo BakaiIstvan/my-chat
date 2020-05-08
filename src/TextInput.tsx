@@ -38,4 +38,10 @@ export class TextInput extends Component<TextInputOptions> {
             </div>);
 
     }
+
+    compenentDidUpdate(prevProps) {
+        if (prevProps.value !== this.props.value) {
+            this.setState({value: this.props.value});
+        }
+    }
 }
